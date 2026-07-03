@@ -49,6 +49,14 @@
   label.q{display:block;font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:7px}
   label.q .opt{font-weight:400;color:var(--muted);font-size:12.5px}
   .hint{font-size:12.5px;color:var(--muted);margin-top:-3px;margin-bottom:8px}
+
+  /* validation errors */
+  .grp.has-error input[type=text],.grp.has-error input[type=email],.grp.has-error input[type=url],.grp.has-error input[type=tel],.grp.has-error textarea{
+    border-color:#E23B3B;box-shadow:0 0 0 3px rgba(226,59,59,.12);
+  }
+  .grp.has-error .chips .chip span,.grp.has-error .rcards .rcard .body{border-color:#E23B3B}
+  .field-err{display:none;font-size:12.5px;color:#E23B3B;font-weight:600;margin-top:6px}
+  .grp.has-error .field-err{display:block}
   input[type=text],input[type=email],input[type=url],input[type=tel],textarea,select{
     width:100%;font-family:'Geist',sans-serif;font-size:14.5px;color:var(--ink);background:#fff;
     border:1px solid var(--line);border-radius:10px;padding:11px 13px;transition:border-color .15s,box-shadow .15s;
@@ -382,6 +390,33 @@
 
   // progress based on required fields filled
   const reqNames=['fullName','business','email','role','whatYouDo','goal','audience','topicsFeature','appearMix','customAvatar'];
+  const reqMessages={
+    fullName:'Please add your name.',
+    business:'Please add your business or brand name.',
+    email:'Please add your email.',
+    role:'Please choose the option that best describes you.',
+    whatYouDo:'Please tell us what you do and who you serve.',
+    goal:'Please pick your #1 goal for your videos.',
+    audience:'Please describe your target audience.',
+    topicsFeature:'Please add at least one topic, offer, or message to feature — this is what your coach and AI voice agent will use to build your first scripts.',
+    appearMix:'Please choose your preferred recording mix.',
+    customAvatar:'Please let us know if you want a custom AI avatar.'
+  };
+  function fieldGroup(name){
+    const el=form.querySelector('[name="'+name+'"]');
+    return el ? el.closest('.grp') : null;
+  }
+  function showFieldError(name){
+    const grp=fieldGroup(name); if(!grp) return;
+    grp.classList.add('has-error');
+    let msg=grp.querySelector('.field-err');
+    if(!msg){ msg=document.createElement('div'); msg.className='field-err'; grp.appendChild(msg); }
+    msg.textContent=reqMessages[name] || 'This field is required.';
+  }
+  function clearFieldError(name){
+    const grp=fieldGroup(name); if(!grp) return;
+    grp.classList.remove('has-error');
+  }
   function progress(){
     let done=0;
     reqNames.forEach(n=>{
@@ -500,8 +535,14 @@
     syncRealtor(); progress();
   }
 
-  form.addEventListener('input',()=>{save(true);progress();});
-  form.addEventListener('change',()=>{save(true);progress();});
+  function clearErrorIfFilled(name){
+    if(reqNames.indexOf(name)===-1) return;
+    const els=form.querySelectorAll('[name="'+name+'"]');
+    const filled = els[0] && els[0].type==='radio' ? !!form.querySelector('[name="'+name+'"]:checked') : !!(els[0] && els[0].value.trim());
+    if(filled) clearFieldError(name);
+  }
+  form.addEventListener('input',e=>{save(true);progress();clearErrorIfFilled(e.target.name);});
+  form.addEventListener('change',e=>{save(true);progress();clearErrorIfFilled(e.target.name);});
   document.getElementById('saveBtn').addEventListener('click',()=>save(false));
 
   form.addEventListener('submit',e=>{
@@ -511,11 +552,16 @@
       if(els[0] && els[0].type==='radio') return !form.querySelector('[name="'+n+'"]:checked');
       return !(els[0] && els[0].value.trim());
     });
+    reqNames.forEach(clearFieldError);
     if(missing.length){
+      missing.forEach(showFieldError);
       const el=form.querySelector('[name="'+missing[0]+'"]');
-      el.scrollIntoView({behavior:'smooth',block:'center'});
-      if(el.focus) el.focus();
-      const n=document.getElementById('saveNote'); n.textContent='Please complete the highlighted fields.'; n.style.color='#B23BFF';
+      const grp=fieldGroup(missing[0]) || el;
+      grp.scrollIntoView({behavior:'smooth',block:'center'});
+      if(el && el.focus) el.focus();
+      const n=document.getElementById('saveNote');
+      n.textContent = missing.length===1 ? '1 required field needs your attention — see above.' : missing.length+' required fields need your attention — see above.';
+      n.style.color='#E23B3B';
       return;
     }
     save(true);
