@@ -402,7 +402,14 @@
   // ============================================================
   const GOOGLE_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSe_pCpDsk12lUjAfU7im4J75DBdurYDymEcwG-nbjAXtqzgAQ/formResponse';
   // Map: HTML field name  ->  Google entry ID
+  // NOTE: the built-in required "Email" question (Collect email addresses =
+  // Responder input) is NOT a normal entry.XXXX field — Google posts it
+  // under the fixed key "emailAddress". It was missing from this map, which
+  // silently broke every submission (Google rejects the whole POST because
+  // the required email question was blank; the cross-origin iframe means
+  // the page shows "Thank you" anyway, hiding the failure).
   const ENTRY = {
+    email:         'emailAddress',
     fullName:      'entry.543206877',
     business:      'entry.1801917244',
     phone:         'entry.412541202',
@@ -424,7 +431,16 @@
     neighborhoods: 'entry.913993016',
     marketFocus:   'entry.2025738007',
     localExamples: 'entry.1641048521',
-    anythingElse:  'entry.247662307'
+    anythingElse:  'entry.247662307',
+    bigvuEmail:      'entry.480842037',
+    secondaryGoals:  'entry.1904338380',
+    gear:            'entry.30745472',
+    recordLocation:  'entry.342072173',
+    notify:          'entry.1862300106',
+    timezone:        'entry.1806618557',
+    availability:    'entry.608902598',
+    teamPotential:   'entry.1219669902',
+    teamSize:        'entry.553056506'
   };
   // Also capture role + 90-day into an existing text field if you like:
   // extra fields (role, ninetyDay) can be appended into anythingElse.
@@ -513,15 +529,6 @@
     const extras = [];
     if(data.role)           extras.push('Client type: '+j(data.role));
     if(data.ninetyDay)      extras.push('90-day success: '+data.ninetyDay);
-    if(data.bigvuEmail)     extras.push('BIGVU account email: '+data.bigvuEmail);
-    if(data.secondaryGoals) extras.push('Secondary goals: '+j(data.secondaryGoals));
-    if(data.gear)           extras.push('Recording gear: '+j(data.gear));
-    if(data.recordLocation) extras.push('Recording location: '+data.recordLocation);
-    if(data.notify)         extras.push('Notify via: '+j(data.notify));
-    if(data.timezone)       extras.push('Time zone: '+data.timezone);
-    if(data.availability)   extras.push('Call availability: '+data.availability);
-    if(data.teamPotential)  extras.push('Team rollout potential: '+j(data.teamPotential));
-    if(data.teamSize)       extras.push('Team size: '+data.teamSize);
     if(extras.length){
       data.anythingElse = (extras.join('\n') + (data.anythingElse ? ('\n\nClient note: '+data.anythingElse) : '')).trim();
     }
@@ -548,4 +555,3 @@
 </script>
 </body>
 </html>
-
