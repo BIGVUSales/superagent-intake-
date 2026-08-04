@@ -84,6 +84,13 @@
   .rcard input:checked + .body{border-color:var(--blue);background:var(--grad-soft);box-shadow:0 0 0 2px rgba(59,107,255,.15)}
   .rcard:hover .body{border-color:var(--blue)}
 
+  .tl{list-style:none;margin:4px 0 16px}
+  .tl li{display:flex;gap:10px;font-size:13.5px;color:var(--ink-soft);margin-bottom:8px}
+  .tl .dot{flex:none;width:8px;height:8px;border-radius:99px;background:var(--grad);margin-top:6px}
+  .tl b{color:var(--ink)}
+  .ackbox{display:flex;gap:11px;align-items:flex-start;background:var(--grad-soft);border:1px solid rgba(59,107,255,.25);border-radius:12px;padding:13px 16px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--ink)}
+  .ackbox input{margin-top:2px;accent-color:var(--blue);width:16px;height:16px;flex:none}
+
   .realtor-only{display:none}
   .realtor-only.show{display:block}
 
@@ -118,8 +125,8 @@
     <img class="logo" src="https://bigvu.tv/assets/brand/logo.svg" alt="BIGVU">
     <span class="badge">SuperAgent · Client Onboarding</span>
     <h1>Welcome aboard — let's set up your content engine</h1>
-    <p>This short form gives your dedicated coach everything they need to build your first month of videos <em>before</em> your kickoff call — so we spend that call planning, not filling in blanks. Takes about 10 minutes.</p>
-    <div class="time">⏱ ~10 minutes · your answers save automatically on this device</div>
+    <p>This short form gives your dedicated coach everything they need to build your first month of videos <em>before</em> your kickoff call — so we spend that call planning, not filling in blanks. Takes about 12 minutes.</p>
+    <div class="time">⏱ ~12 minutes · your answers save automatically on this device</div>
   </div>
 </header>
 
@@ -159,6 +166,9 @@
     <div class="grp"><label class="q">What do you do, and who do you serve?</label>
       <div class="hint">A couple of sentences on your business and your ideal client.</div>
       <textarea name="whatYouDo" required></textarea></div>
+    <div class="grp"><label class="q">Your main offer, program, or service</label>
+      <div class="hint">The one thing your videos should ultimately sell — e.g. listing consultations, a 12-week coaching program.</div>
+      <input type="text" name="mainOffer"></div>
   </section>
 
   <!-- 2 · GOALS & AUDIENCE -->
@@ -191,6 +201,9 @@
     <div class="grp"><label class="q">Who is your target audience?</label>
       <div class="hint">Who should these videos speak to? e.g. first-time buyers, sellers in [area], small-business owners.</div>
       <textarea name="audience" required></textarea></div>
+    <div class="grp"><label class="q">What's been your biggest frustration with video so far? <span class="opt">(optional)</span></label>
+      <div class="hint">Tried before and stalled? Hate editing? Not sure what to say? This tells us where to remove friction first.</div>
+      <textarea name="videoFrustration"></textarea></div>
     <div class="grp"><label class="q">If we're thrilled 90 days from now, what happened? <span class="opt">(optional)</span></label>
       <textarea name="ninetyDay"></textarea></div>
   </section>
@@ -212,6 +225,31 @@
     <div class="grp"><label class="q">Website &amp; existing social profiles</label>
       <div class="hint">Paste your website and any social handles so we can match your look and voice.</div>
       <textarea name="webSocials" placeholder="Website: …&#10;Instagram: @…&#10;Facebook: …&#10;YouTube: …&#10;LinkedIn: …"></textarea></div>
+  </section>
+
+  <!-- MEDIA LIBRARY (v2) -->
+  <section class="card">
+    <span class="snum">4</span>
+    <h2>Your media library</h2>
+    <p class="desc">Footage and photos you already own become B-roll and personalized edits — and save your editor days of guesswork.</p>
+    <div class="grp">
+      <label class="q">What usable content do you already have? <span class="opt">(select all that apply)</span></label>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Photos of me"><span>Photos of me</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Videos of me"><span>Videos of me</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Property / listing footage"><span>Property / listing footage</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Office / team footage"><span>Office / team footage</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Client testimonials"><span>Client testimonials</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Local market footage"><span>Local market footage</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Stock footage I own / prefer"><span>Stock footage I own / prefer</span></label>
+        <label class="chip"><input type="checkbox" name="mediaHave" value="Nothing yet"><span>Nothing yet — that's fine</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Link to your asset folder <span class="opt">(optional)</span></label>
+      <div class="hint">Google Drive or Dropbox link with anything we can use. Your coach will confirm access at kickoff.</div>
+      <input type="url" name="assetFolder" placeholder="https://drive.google.com/…"></div>
+    <div class="grp"><label class="q">Anything in there we should definitely use — or avoid? <span class="opt">(optional)</span></label>
+      <input type="text" name="assetNotes"></div>
   </section>
 
   <!-- 4 · VOICE & KNOWLEDGE BASE -->
@@ -242,6 +280,30 @@
       <textarea name="admire"></textarea></div>
   </section>
 
+  <!-- VIDEOS YOU LOVE (v2) -->
+  <section class="card">
+    <span class="snum">6</span>
+    <h2>Videos you love</h2>
+    <p class="desc">Show us, don't tell us. Real examples give your editor visual direction before the first cut — the single biggest thing that reduces re-edits.</p>
+    <div class="grp"><label class="q">Paste links to 2–3 videos or reels you love</label>
+      <div class="hint">Instagram, TikTok, or YouTube. Competitors, coaches, agents — anyone whose style you'd happily borrow.</div>
+      <textarea name="styleLinks" placeholder="One link per line"></textarea></div>
+    <div class="grp">
+      <label class="q">What is it about them that works for you? <span class="opt">(select all that apply)</span></label>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Pacing & energy"><span>Pacing &amp; energy</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Caption style"><span>Caption style</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Music"><span>Music</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Tone & delivery"><span>Tone &amp; delivery</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="B-roll & visuals"><span>B-roll &amp; visuals</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Background / setting"><span>Background / setting</span></label>
+        <label class="chip"><input type="checkbox" name="styleLikes" value="Hooks & openers"><span>Hooks &amp; openers</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Anything else about the style you're going for? <span class="opt">(optional)</span></label>
+      <textarea name="styleNotes"></textarea></div>
+  </section>
+
   <!-- 5 · HOW YOU'LL APPEAR -->
   <section class="card">
     <span class="snum">5</span>
@@ -266,6 +328,112 @@
     </div>
   </section>
 
+  <!-- RECORDING SETUP (v2) -->
+  <section class="card">
+    <span class="snum">8</span>
+    <h2>Your recording setup</h2>
+    <p class="desc">Two minutes here prevents the #1 delivery delay: footage we can't use. No gear needed to start — your phone is enough.</p>
+    <div class="grp">
+      <label class="q">What recording gear do you have? <span class="opt">(select all that apply)</span></label>
+      <div class="hint">Helps us dial in your test-video quality. No gear needed to start — your phone is enough.</div>
+      <div class="chips">
+        <label class="chip"><input type="checkbox" name="gear" value="External mic"><span>External mic</span></label>
+        <label class="chip"><input type="checkbox" name="gear" value="Lighting / ring light"><span>Lighting / ring light</span></label>
+        <label class="chip"><input type="checkbox" name="gear" value="Tripod / phone mount"><span>Tripod / phone mount</span></label>
+        <label class="chip"><input type="checkbox" name="gear" value="Just my phone"><span>Just my phone</span></label>
+        <label class="chip"><input type="checkbox" name="gear" value="Not sure"><span>Not sure</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Where will you usually record? <span class="opt">(optional)</span></label>
+      <div class="hint">e.g. home office, my brokerage, in the car, out on listings.</div>
+      <input type="text" name="recordLocation"></div>
+
+    <div class="grp">
+      <label class="q">What will you record on?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="recordDevice" value="My phone"><span>My phone</span></label>
+        <label class="chip"><input type="radio" name="recordDevice" value="Webcam"><span>Webcam</span></label>
+        <label class="chip"><input type="radio" name="recordDevice" value="Professional camera"><span>Professional camera</span></label>
+        <label class="chip"><input type="radio" name="recordDevice" value="Not sure yet"><span>Not sure yet</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Phone / camera model &amp; microphone <span class="opt">(optional)</span></label>
+      <div class="hint">e.g. "iPhone 15, built-in mic" — built-in is often fine, we just want to know.</div>
+      <input type="text" name="deviceModel"></div>
+    <div class="grp">
+      <label class="q">Your lighting situation</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="lighting" value="Great natural light"><span>Great natural light</span></label>
+        <label class="chip"><input type="radio" name="lighting" value="I have lighting equipment"><span>I have lighting equipment</span></label>
+        <label class="chip"><input type="radio" name="lighting" value="Neither — help me"><span>Neither — help me</span></label>
+      </div>
+    </div>
+    <div class="grp">
+      <label class="q">Highest resolution you can record</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="resolution" value="4K"><span>4K</span></label>
+        <label class="chip"><input type="radio" name="resolution" value="1080p"><span>1080p</span></label>
+        <label class="chip"><input type="radio" name="resolution" value="Not sure"><span>Not sure</span></label>
+      </div>
+    </div>
+    <div class="grp">
+      <label class="q">Want a quick setup call before your first recording?</label>
+      <div class="rcards">
+        <label class="rcard"><input type="radio" name="setupCall" value="Yes, please"><div class="body"><b>Yes, please</b><small>15 minutes to check framing, light, and audio.</small></div></label>
+        <label class="rcard"><input type="radio" name="setupCall" value="No, I'm set"><div class="body"><b>No, I'm set</b><small>I'll send a test clip instead.</small></div></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITING PREFERENCES (v2) -->
+  <section class="card">
+    <span class="snum">9</span>
+    <h2>How you like your edits</h2>
+    <p class="desc">Set the defaults once so every video comes back closer to right the first time.</p>
+    <div class="grp">
+      <label class="q">Captions on your videos?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="captions" value="Yes, on everything"><span>Yes, on everything</span></label>
+        <label class="chip"><input type="radio" name="captions" value="Only some videos"><span>Only some videos</span></label>
+        <label class="chip"><input type="radio" name="captions" value="No captions"><span>No captions</span></label>
+        <label class="chip"><input type="radio" name="captions" value="Editor's choice"><span>Editor's choice</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Preferred caption style <span class="opt">(optional)</span></label>
+      <input type="text" name="captionStyle" placeholder='e.g. "bold word-by-word pop," "clean minimal lower-third"'></div>
+    <div class="grp">
+      <label class="q">B-roll and cutaway footage?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="broll" value="Yes, love it"><span>Yes, love it</span></label>
+        <label class="chip"><input type="radio" name="broll" value="Light touch"><span>Light touch</span></label>
+        <label class="chip"><input type="radio" name="broll" value="Keep it talking-head"><span>Keep it talking-head</span></label>
+        <label class="chip"><input type="radio" name="broll" value="Editor's choice"><span>Editor's choice</span></label>
+      </div>
+    </div>
+    <div class="grp">
+      <label class="q">Should we ever change or replace your background?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="bgChange" value="Sure, if it looks better"><span>Sure, if it looks better</span></label>
+        <label class="chip"><input type="radio" name="bgChange" value="No — keep it real"><span>No — keep it real</span></label>
+        <label class="chip"><input type="radio" name="bgChange" value="Let's discuss"><span>Let's discuss</span></label>
+      </div>
+    </div>
+    <div class="grp">
+      <label class="q">Background music?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="music" value="Yes — upbeat"><span>Yes — upbeat</span></label>
+        <label class="chip"><input type="radio" name="music" value="Yes — subtle"><span>Yes — subtle</span></label>
+        <label class="chip"><input type="radio" name="music" value="No music"><span>No music</span></label>
+        <label class="chip"><input type="radio" name="music" value="Editor's choice"><span>Editor's choice</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">Colors, fonts, or effects to avoid <span class="opt">(optional)</span></label>
+      <input type="text" name="avoidStyles"></div>
+    <div class="grp"><label class="q">Ever seen an edit — yours or anyone's — you disliked? <span class="opt">(optional)</span></label>
+      <div class="hint">Links welcome. Knowing what you don't want is as useful as knowing what you do.</div>
+      <textarea name="dislikedEdits"></textarea></div>
+  </section>
+
   <!-- 6 · REALTOR LOCAL PROFILE -->
   <section class="card realtor-only" id="realtorCard">
     <span class="snum">6</span>
@@ -287,6 +455,20 @@
       <textarea name="localExamples"></textarea></div>
   </section>
 
+  <!-- MOMENTUM / TIMELINE (v2) -->
+  <section class="card">
+    <span class="snum">11</span>
+    <h2>How we keep momentum</h2>
+    <p class="desc">Clients who review on schedule get their videos on schedule. Here's the rhythm we'll both commit to:</p>
+    <ul class="tl">
+      <li><span class="dot"></span><span><b>Scripts:</b> you review and approve within <b>2 business days</b> of delivery.</span></li>
+      <li><span class="dot"></span><span><b>Recording:</b> begins right after script approval — we'll confirm your recording day together.</span></li>
+      <li><span class="dot"></span><span><b>Edit feedback:</b> each draft comes with a due date for your notes.</span></li>
+      <li><span class="dot"></span><span><b>The honest part:</b> delayed approvals or missing media shift your delivery dates. We'd rather tell you now than surprise you later.</span></li>
+    </ul>
+    <label class="ackbox"><input type="checkbox" name="timelineAck" value="Acknowledged"><span>Got it — I understand the review &amp; approval rhythm.</span></label>
+  </section>
+
   <!-- 7 · LOGISTICS -->
   <section class="card">
     <span class="snum" id="lognum">6</span>
@@ -303,21 +485,6 @@
         <label class="chip"><input type="checkbox" name="channels" value="Email"><span>Email</span></label>
       </div>
     </div>
-
-    <div class="grp">
-      <label class="q">What recording gear do you have? <span class="opt">(select all that apply)</span></label>
-      <div class="hint">Helps us dial in your test-video quality. No gear needed to start — your phone is enough.</div>
-      <div class="chips">
-        <label class="chip"><input type="checkbox" name="gear" value="External mic"><span>External mic</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Lighting / ring light"><span>Lighting / ring light</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Tripod / phone mount"><span>Tripod / phone mount</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Just my phone"><span>Just my phone</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Not sure"><span>Not sure</span></label>
-      </div>
-    </div>
-    <div class="grp"><label class="q">Where will you usually record? <span class="opt">(optional)</span></label>
-      <div class="hint">e.g. home office, my brokerage, in the car, out on listings.</div>
-      <input type="text" name="recordLocation"></div>
 
     <div class="grp">
       <label class="q">How should we reach you when scripts are ready?</label>
@@ -350,6 +517,17 @@
     <div class="grp"><label class="q">Roughly how many agents on your team? <span class="opt">(optional)</span></label>
       <input type="text" name="teamSize" placeholder="e.g. just me, ~10, ~100"></div>
 
+    <div class="grp">
+      <label class="q">Who approves scripts and videos?</label>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="approver" value="Me"><span>Me</span></label>
+        <label class="chip"><input type="radio" name="approver" value="Someone on my team"><span>Someone on my team</span></label>
+        <label class="chip"><input type="radio" name="approver" value="Both of us"><span>Both of us</span></label>
+      </div>
+    </div>
+    <div class="grp"><label class="q">If someone else: their name &amp; best contact <span class="opt">(optional)</span></label>
+      <div class="hint">The person we ping for approvals so nothing sits waiting.</div>
+      <input type="text" name="approverContact"></div>
     <div class="grp"><label class="q">Anything else your coach should know before we meet? <span class="opt">(optional)</span></label>
       <textarea name="anythingElse"></textarea></div>
     <div class="note"><b>What happens next:</b> your coach reviews this before your kickoff call, where we'll confirm your setup, connect your channels, capture your voice, and lock your first month's plan. You approve every topic and script before anything goes out.</div>
@@ -380,11 +558,18 @@
 
   // show realtor section + renumber logistics
   const realtorCard=document.getElementById('realtorCard'), lognum=document.getElementById('lognum');
+  function renumber(){
+    let i=1;
+    form.querySelectorAll('section.card').forEach(c=>{
+      if(c.classList.contains('realtor-only') && !c.classList.contains('show')) return;
+      const s=c.querySelector('.snum'); if(s) s.textContent=i++;
+    });
+  }
   function syncRealtor(){
     const role=form.querySelector('input[name="role"]:checked');
     const isR = role && role.value.startsWith('Real estate');
     realtorCard.classList.toggle('show', !!isR);
-    lognum.textContent = isR ? '7' : '6';
+    renumber();
   }
   document.getElementById('roleChips').addEventListener('change', syncRealtor);
 
@@ -475,7 +660,32 @@
     timezone:        'entry.1806618557',
     availability:    'entry.608902598',
     teamPotential:   'entry.1219669902',
-    teamSize:        'entry.553056506'
+    teamSize:        'entry.553056506',
+    // ---- v2 fields (CEO feedback) — entry IDs mapped Aug 4, 2026. Each posts
+    // ---- to its own Google Form question / Sheet column.
+    mainOffer:        'entry.640398527',
+    videoFrustration: 'entry.668751822',
+    mediaHave:        'entry.510287510',
+    assetFolder:      'entry.405642858',
+    assetNotes:       'entry.2126789412',
+    styleLinks:       'entry.1181001290',
+    styleLikes:       'entry.1558500811',
+    styleNotes:       'entry.752815261',
+    recordDevice:     'entry.1445378047',
+    deviceModel:      'entry.1976426707',
+    lighting:         'entry.1359298291',
+    resolution:       'entry.1197864958',
+    setupCall:        'entry.1831778787',
+    captions:         'entry.75580389',
+    captionStyle:     'entry.888297647',
+    broll:            'entry.1259189883',
+    bgChange:         'entry.825811727',
+    music:            'entry.1650059902',
+    avoidStyles:      'entry.2070792180',
+    dislikedEdits:    'entry.1730093916',
+    timelineAck:      'entry.914410953',
+    approver:         'entry.571780225',
+    approverContact:  'entry.1496237520'
   };
   // Also capture role + 90-day into an existing text field if you like:
   // extra fields (role, ninetyDay) can be appended into anythingElse.
@@ -575,6 +785,23 @@
     const extras = [];
     if(data.role)           extras.push('Client type: '+j(data.role));
     if(data.ninetyDay)      extras.push('90-day success: '+data.ninetyDay);
+    // v2 fields still awaiting their own entry ID are folded in here so no
+    // answer is ever lost; each stops bridging automatically once mapped.
+    var V2_LABELS = {
+      mainOffer:'Main offer', videoFrustration:'Video frustration', mediaHave:'Media on hand',
+      assetFolder:'Asset folder', assetNotes:'Asset notes', styleLinks:'Style links',
+      styleLikes:'Style likes', styleNotes:'Style notes', recordDevice:'Records on',
+      deviceModel:'Device & mic', lighting:'Lighting', resolution:'Resolution',
+      setupCall:'Setup call', captions:'Captions', captionStyle:'Caption style',
+      broll:'B-roll', bgChange:'Background change', music:'Music',
+      avoidStyles:'Avoid styles', dislikedEdits:'Disliked edits', timelineAck:'Timeline ack',
+      approver:'Approver', approverContact:'Approver contact'
+    };
+    Object.keys(V2_LABELS).forEach(function(k){
+      if(ENTRY[k] && ENTRY[k].indexOf('PLACEHOLDER') !== -1 && data[k] && j(data[k]).trim()){
+        extras.push(V2_LABELS[k]+': '+j(data[k]));
+      }
+    });
     if(extras.length){
       data.anythingElse = (extras.join('\n') + (data.anythingElse ? ('\n\nClient note: '+data.anythingElse) : '')).trim();
     }
