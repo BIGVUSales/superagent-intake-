@@ -1,3 +1,4 @@
+<!-- SuperAgent intake form · build 2026-08-20 · 7 style cards, YouTube inline, max 2 selections -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,7 +117,46 @@
   footer img{height:18px;opacity:.6;margin-bottom:8px}
 
   @media(max-width:620px){.row,.row3,.rcards{grid-template-columns:1fr}}
-</style>
+
+
+      /* ===== Video style picker ===== */
+    .vstyles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:10px}
+    @media(max-width:820px){.vstyles{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.vstyles{grid-template-columns:1fr}}
+    .vcard{border:1.5px solid #E1E5F0;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s}
+    .vcard.sel{border-color:#3B6BFF;box-shadow:0 0 0 3px rgba(59,107,255,.13)}
+    .vcard.lock{opacity:.5}
+    .vthumb{position:relative;aspect-ratio:9/16;background:#0E1116;border:0;padding:0;width:100%;cursor:pointer;overflow:hidden;display:block}
+    .vthumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .vthumb .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:12px;background:#EEF1F8}
+    .vthumb .pbtn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .vthumb .pbtn span{background:rgba(14,17,22,.72);color:#fff;border-radius:999px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .15s}
+    .vthumb:hover .pbtn span{background:#3B6BFF}
+    .vthumb .plabel{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(14,17,22,.8),transparent);color:#fff;font-size:11.5px;font-weight:600;padding:20px 8px 8px;text-align:center;pointer-events:none}
+    .vframe{position:relative;aspect-ratio:9/16;background:#000}
+    .vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .vmeta{padding:11px 13px 4px}
+    .vmeta b{display:block;font-size:14px;color:#0E1116;line-height:1.3}
+    .vcard.sel .vmeta b{color:#3B6BFF}
+    .vmeta small{display:block;font-size:11.8px;color:#6B7280;line-height:1.4;margin-top:3px}
+    .vsel{display:flex;align-items:center;gap:8px;margin:9px 13px 13px;padding:8px 10px;border:1px solid #E1E5F0;border-radius:9px;cursor:pointer;font-size:12.5px;color:#3A4150;background:#FAFBFF}
+    .vsel:hover{border-color:#3B6BFF;color:#3B6BFF}
+    .vcard.sel .vsel{background:rgba(59,107,255,.08);border-color:#3B6BFF;color:#3B6BFF;font-weight:600}
+    .vcard.lock .vsel{cursor:not-allowed}
+    .vsel input{margin:0;accent-color:#3B6BFF}
+    .vpick{flex:1;display:flex;align-items:flex-start;gap:11px;cursor:pointer;margin:0}
+    .vpick input{margin:2px 0 0;accent-color:#3B6BFF;flex-shrink:0}
+    .vpick .txt b{display:block;font-size:14px;color:#0E1116;line-height:1.3}
+    .vrow.sel .vpick .txt b{color:#3B6BFF}
+    .vpick .txt small{display:block;font-size:12px;color:#6B7280;line-height:1.4;margin-top:2px}
+    .vwatch{flex-shrink:0;font-size:12.5px;font-weight:600;color:#3B6BFF;text-decoration:none;border:1px solid #D7E0F8;border-radius:8px;padding:7px 12px;white-space:nowrap;background:#fff}
+    .vwatch:hover{background:#3B6BFF;color:#fff;border-color:#3B6BFF}
+    @media(max-width:520px){
+      .vrow{flex-direction:column;align-items:stretch;gap:10px}
+      .vwatch{text-align:center}
+    }
+
+  </style>
 </head>
 <body>
 
@@ -146,12 +186,10 @@
       <div class="grp"><label class="q">Business / brand name</label><input type="text" name="business" required></div>
     </div>
     <div class="row">
-      <div class="grp"><label class="q">Email</label><input type="email" name="email" required></div>
+      <div class="grp"><label class="q">Your BIGVU account email</label><div class="hint">Use the same email you log into BIGVU with, so we can find your account.</div><input type="email" name="email" required></div>
       <div class="grp"><label class="q">Phone / WhatsApp <span class="opt">(optional)</span></label><input type="tel" name="phone"></div>
     </div>
-    <div class="grp"><label class="q">Your BIGVU account email <span class="opt">(if different from above)</span></label>
-      <div class="hint">If you already have a BIGVU login — especially if you have more than one — tell us which email your account is under so we set up the right workspace.</div>
-      <input type="email" name="bigvuEmail"></div>
+    
     <div class="grp">
       <label class="q">Which best describes you?</label>
       <div class="chips" id="roleChips">
@@ -185,25 +223,11 @@
         <label class="chip"><input type="radio" name="goal" value="Show up consistently"><span>Just show up consistently</span></label>
       </div>
     </div>
-    <div class="grp">
-      <label class="q">Any secondary goals? <span class="opt">(select all that apply)</span></label>
-      <div class="hint">Most people have more than one. Pick everything that matters.</div>
-      <div class="chips">
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="More leads / inquiries"><span>More leads / inquiries</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="Maintain / strengthen my brand"><span>Maintain / strengthen my brand</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="More seller listings"><span>More seller listings</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="More buyer clients"><span>More buyer clients</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="Nurture my sphere / referrals"><span>Nurture sphere / referrals</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="Lead my team by example"><span>Lead my team by example</span></label>
-        <label class="chip"><input type="checkbox" name="secondaryGoals" value="Recruit agents"><span>Recruit agents</span></label>
-      </div>
-    </div>
+    
     <div class="grp"><label class="q">Who is your target audience?</label>
       <div class="hint">Who should these videos speak to? e.g. first-time buyers, sellers in [area], small-business owners.</div>
       <textarea name="audience" required></textarea></div>
-    <div class="grp"><label class="q">What's been your biggest frustration with video so far? <span class="opt">(optional)</span></label>
-      <div class="hint">Tried before and stalled? Hate editing? Not sure what to say? This tells us where to remove friction first.</div>
-      <textarea name="videoFrustration"></textarea></div>
+    
     <div class="grp"><label class="q">If we're thrilled 90 days from now, what happened? <span class="opt">(optional)</span></label>
       <textarea name="ninetyDay"></textarea></div>
   </section>
@@ -217,7 +241,7 @@
       <div class="grp"><label class="q">Brand colors <span class="opt">(optional)</span></label>
         <div class="hint">HEX codes if you have them, or describe.</div>
         <input type="text" name="colors" placeholder="#3B6BFF, navy, warm gold…"></div>
-      <div class="grp"><label class="q">Preferred fonts <span class="opt">(optional)</span></label><input type="text" name="fonts" placeholder="e.g. Montserrat, or 'clean & modern'"></div>
+      
     </div>
     <div class="grp"><label class="q">Logo &amp; headshot links <span class="opt">(optional)</span></label>
       <div class="hint">Drive/Dropbox link, or paste your website — your coach will confirm uploads at kickoff.</div>
@@ -273,9 +297,7 @@
     <div class="grp"><label class="q">Topics or words to avoid</label>
       <div class="hint">Anything off-brand, off-limits, or that you'd never say.</div>
       <textarea name="topicsAvoid"></textarea></div>
-    <div class="grp"><label class="q">Trusted sources <span class="opt">(optional)</span></label>
-      <div class="hint">Publications, data, or people you're happy to reference.</div>
-      <input type="text" name="sources"></div>
+    
     <div class="grp"><label class="q">Creators or accounts whose style you admire <span class="opt">(optional)</span></label>
       <textarea name="admire"></textarea></div>
   </section>
@@ -310,6 +332,14 @@
     <h2>How you want to appear</h2>
     <p class="desc">You get 8 videos a month — recorded by you, generated with an AI avatar, or a mix. There's no wrong answer; we'll refine at kickoff.</p>
     <div class="grp">
+      <label class="q">Which video styles do you like? <span class="opt">(choose up to two)</span></label>
+      <div class="hint">Tap any thumbnail to watch the example — it plays right here, and previewing won't select it. Then tick <b>Select this style</b> on the one or two you'd like us to build your videos in. Not sure? Pick the closest and we'll refine it on your kickoff call.</div>
+      <div class="vstyles" id="vstyles"></div>
+      <div class="hint" style="font-size:10.5px;color:#9AA3B2;margin-top:6px">form build 2026-08-20</div>
+      <div class="hint" id="vcount" style="margin-top:8px;color:#3B6BFF;font-weight:600"></div>
+      <input type="hidden" name="videoStyle" id="videoStyle">
+    </div>
+    <div class="grp">
       <label class="q">Your preferred mix</label>
       <div class="rcards">
         <label class="rcard"><input type="radio" name="appearMix" value="Mostly me on camera"><div class="body"><b>Mostly me</b><small>I'll record most videos myself on the teleprompter.</small></div></label>
@@ -318,14 +348,7 @@
         <label class="rcard"><input type="radio" name="appearMix" value="Not sure — advise me"><div class="body"><b>Not sure</b><small>Help me decide on our call.</small></div></label>
       </div>
     </div>
-    <div class="grp">
-      <label class="q">Would you like a custom AI avatar built from your footage?</label>
-      <div class="hint">A custom avatar looks more like the real you than a talking photo. It needs a short video sample, which your coach will guide.</div>
-      <div class="rcards">
-        <label class="rcard"><input type="radio" name="customAvatar" value="Yes"><div class="body"><b>Yes, I'd like one</b><small>I'll provide footage during onboarding.</small></div></label>
-        <label class="rcard"><input type="radio" name="customAvatar" value="No / talking photo is fine"><div class="body"><b>No, photo is fine</b><small>Use a talking photo from my headshot.</small></div></label>
-      </div>
-    </div>
+    
   </section>
 
   <!-- RECORDING SETUP (v2) -->
@@ -333,17 +356,7 @@
     <span class="snum">8</span>
     <h2>Your recording setup</h2>
     <p class="desc">Two minutes here prevents the #1 delivery delay: footage we can't use. No gear needed to start — your phone is enough.</p>
-    <div class="grp">
-      <label class="q">What recording gear do you have? <span class="opt">(select all that apply)</span></label>
-      <div class="hint">Helps us dial in your test-video quality. No gear needed to start — your phone is enough.</div>
-      <div class="chips">
-        <label class="chip"><input type="checkbox" name="gear" value="External mic"><span>External mic</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Lighting / ring light"><span>Lighting / ring light</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Tripod / phone mount"><span>Tripod / phone mount</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Just my phone"><span>Just my phone</span></label>
-        <label class="chip"><input type="checkbox" name="gear" value="Not sure"><span>Not sure</span></label>
-      </div>
-    </div>
+    
     <div class="grp"><label class="q">Where will you usually record? <span class="opt">(optional)</span></label>
       <div class="hint">e.g. home office, my brokerage, in the car, out on listings.</div>
       <input type="text" name="recordLocation"></div>
@@ -390,34 +403,10 @@
     <span class="snum">9</span>
     <h2>How you like your edits</h2>
     <p class="desc">Set the defaults once so every video comes back closer to right the first time.</p>
-    <div class="grp">
-      <label class="q">Captions on your videos?</label>
-      <div class="chips">
-        <label class="chip"><input type="radio" name="captions" value="Yes, on everything"><span>Yes, on everything</span></label>
-        <label class="chip"><input type="radio" name="captions" value="Only some videos"><span>Only some videos</span></label>
-        <label class="chip"><input type="radio" name="captions" value="No captions"><span>No captions</span></label>
-        <label class="chip"><input type="radio" name="captions" value="Editor's choice"><span>Editor's choice</span></label>
-      </div>
-    </div>
-    <div class="grp"><label class="q">Preferred caption style <span class="opt">(optional)</span></label>
-      <input type="text" name="captionStyle" placeholder='e.g. "bold word-by-word pop," "clean minimal lower-third"'></div>
-    <div class="grp">
-      <label class="q">B-roll and cutaway footage?</label>
-      <div class="chips">
-        <label class="chip"><input type="radio" name="broll" value="Yes, love it"><span>Yes, love it</span></label>
-        <label class="chip"><input type="radio" name="broll" value="Light touch"><span>Light touch</span></label>
-        <label class="chip"><input type="radio" name="broll" value="Keep it talking-head"><span>Keep it talking-head</span></label>
-        <label class="chip"><input type="radio" name="broll" value="Editor's choice"><span>Editor's choice</span></label>
-      </div>
-    </div>
-    <div class="grp">
-      <label class="q">Should we ever change or replace your background?</label>
-      <div class="chips">
-        <label class="chip"><input type="radio" name="bgChange" value="Sure, if it looks better"><span>Sure, if it looks better</span></label>
-        <label class="chip"><input type="radio" name="bgChange" value="No — keep it real"><span>No — keep it real</span></label>
-        <label class="chip"><input type="radio" name="bgChange" value="Let's discuss"><span>Let's discuss</span></label>
-      </div>
-    </div>
+    
+    
+    
+    
     <div class="grp">
       <label class="q">Background music?</label>
       <div class="chips">
@@ -429,9 +418,7 @@
     </div>
     <div class="grp"><label class="q">Colors, fonts, or effects to avoid <span class="opt">(optional)</span></label>
       <input type="text" name="avoidStyles"></div>
-    <div class="grp"><label class="q">Ever seen an edit — yours or anyone's — you disliked? <span class="opt">(optional)</span></label>
-      <div class="hint">Links welcome. Knowing what you don't want is as useful as knowing what you do.</div>
-      <textarea name="dislikedEdits"></textarea></div>
+    
   </section>
 
   <!-- 6 · REALTOR LOCAL PROFILE -->
@@ -451,8 +438,7 @@
         <label class="chip"><input type="checkbox" name="marketFocus" value="Relocation"><span>Relocation</span></label>
       </div>
     </div>
-    <div class="grp"><label class="q">Local example accounts you like <span class="opt">(optional)</span></label>
-      <textarea name="localExamples"></textarea></div>
+    
   </section>
 
   <!-- MOMENTUM / TIMELINE (v2) -->
@@ -486,16 +472,7 @@
       </div>
     </div>
 
-    <div class="grp">
-      <label class="q">How should we reach you when scripts are ready?</label>
-      <div class="hint">We'll use this to send scripts, confirm recordings, and share results.</div>
-      <div class="chips">
-        <label class="chip"><input type="checkbox" name="notify" value="Email"><span>Email</span></label>
-        <label class="chip"><input type="checkbox" name="notify" value="Text / SMS"><span>Text / SMS</span></label>
-        <label class="chip"><input type="checkbox" name="notify" value="WhatsApp"><span>WhatsApp</span></label>
-        <label class="chip"><input type="checkbox" name="notify" value="In-app"><span>In-app</span></label>
-      </div>
-    </div>
+    
 
     <div class="row">
       <div class="grp"><label class="q">Your time zone</label>
@@ -505,17 +482,8 @@
         <input type="text" name="availability" placeholder="e.g. Tuesday or Thursday mornings"></div>
     </div>
 
-    <div class="grp">
-      <label class="q">Could this roll out to a team or brokerage?</label>
-      <div class="hint">No pressure — it just helps us support you the right way.</div>
-      <div class="rcards">
-        <label class="rcard"><input type="radio" name="teamPotential" value="Just me for now"><div class="body"><b>Just me</b><small>This is for my personal brand.</small></div></label>
-        <label class="rcard"><input type="radio" name="teamPotential" value="Testing before rolling out to my team"><div class="body"><b>Testing it first</b><small>If it works, I'd introduce it to my team.</small></div></label>
-        <label class="rcard"><input type="radio" name="teamPotential" value="Want team / brokerage-wide"><div class="body"><b>Team-wide</b><small>I'd like this across my brokerage.</small></div></label>
-      </div>
-    </div>
-    <div class="grp"><label class="q">Roughly how many agents on your team? <span class="opt">(optional)</span></label>
-      <input type="text" name="teamSize" placeholder="e.g. just me, ~10, ~100"></div>
+    
+    
 
     <div class="grp">
       <label class="q">Who approves scripts and videos?</label>
@@ -585,7 +553,6 @@
     audience:'Please describe your target audience.',
     topicsFeature:'Please add at least one topic, offer, or message to feature — this is what your coach and AI voice agent will use to build your first scripts.',
     appearMix:'Please choose your preferred recording mix.',
-    customAvatar:'Please let us know if you want a custom AI avatar.'
   };
   function fieldGroup(name){
     const el=form.querySelector('[name="'+name+'"]');
@@ -629,6 +596,7 @@
   // the required email question was blank; the cross-origin iframe means
   // the page shows "Thank you" anyway, hiding the failure).
   const ENTRY = {
+    videoStyle:    'entry.202141024',
     email:         'emailAddress',
     fullName:      'entry.543206877',
     business:      'entry.1801917244',
@@ -637,34 +605,23 @@
     goal:          'entry.2036910015',
     audience:      'entry.1051039945',
     colors:        'entry.693223604',
-    fonts:         'entry.2039944292',
     assetLinks:    'entry.1797797382',
     webSocials:    'entry.515167907',
     tone:          'entry.851203659',
     topicsFeature: 'entry.1828481547',
     topicsAvoid:   'entry.491182954',
-    sources:       'entry.591044436',
     admire:        'entry.201812134',
     appearMix:     'entry.157395967',
-    customAvatar:  'entry.1280940214',
     channels:      'entry.1216370895',
     neighborhoods: 'entry.913993016',
     marketFocus:   'entry.2025738007',
-    localExamples: 'entry.1641048521',
     anythingElse:  'entry.247662307',
-    bigvuEmail:      'entry.480842037',
-    secondaryGoals:  'entry.1904338380',
-    gear:            'entry.30745472',
     recordLocation:  'entry.342072173',
-    notify:          'entry.1862300106',
     timezone:        'entry.1806618557',
     availability:    'entry.608902598',
-    teamPotential:   'entry.1219669902',
-    teamSize:        'entry.553056506',
     // ---- v2 fields (CEO feedback) — entry IDs mapped Aug 4, 2026. Each posts
     // ---- to its own Google Form question / Sheet column.
     mainOffer:        'entry.640398527',
-    videoFrustration: 'entry.668751822',
     mediaHave:        'entry.510287510',
     assetFolder:      'entry.405642858',
     assetNotes:       'entry.2126789412',
@@ -676,13 +633,8 @@
     lighting:         'entry.1359298291',
     resolution:       'entry.1197864958',
     setupCall:        'entry.1831778787',
-    captions:         'entry.75580389',
-    captionStyle:     'entry.888297647',
-    broll:            'entry.1259189883',
-    bgChange:         'entry.825811727',
     music:            'entry.1650059902',
     avoidStyles:      'entry.2070792180',
-    dislikedEdits:    'entry.1730093916',
     timelineAck:      'entry.914410953',
     approver:         'entry.571780225',
     approverContact:  'entry.1496237520'
@@ -787,14 +739,16 @@
     if(data.ninetyDay)      extras.push('90-day success: '+data.ninetyDay);
     // v2 fields still awaiting their own entry ID are folded in here so no
     // answer is ever lost; each stops bridging automatically once mapped.
-    var V2_LABELS = {
-      mainOffer:'Main offer', videoFrustration:'Video frustration', mediaHave:'Media on hand',
+  
+
+
+  var V2_LABELS = {
+      mainOffer:'Main offer', mediaHave:'Media on hand',
       assetFolder:'Asset folder', assetNotes:'Asset notes', styleLinks:'Style links',
       styleLikes:'Style likes', styleNotes:'Style notes', recordDevice:'Records on',
       deviceModel:'Device & mic', lighting:'Lighting', resolution:'Resolution',
-      setupCall:'Setup call', captions:'Captions', captionStyle:'Caption style',
-      broll:'B-roll', bgChange:'Background change', music:'Music',
-      avoidStyles:'Avoid styles', dislikedEdits:'Disliked edits', timelineAck:'Timeline ack',
+      setupCall:'Setup call', music:'Music',
+      avoidStyles:'Avoid styles', timelineAck:'Timeline ack',
       approver:'Approver', approverContact:'Approver contact'
     };
     Object.keys(V2_LABELS).forEach(function(k){
@@ -825,6 +779,106 @@
   });
 
   restore();
+
+  /* ===== Video style picker config =====
+     yt    = the YouTube video ID only (NOT the full URL).
+             From https://youtu.be/dQw4w9WgXcQ  ->  yt:'dQw4w9WgXcQ'
+             Upload the clips as UNLISTED so they embed but stay off your channel.
+     video = Dropbox fallback, used only if yt is empty.
+  */
+  var VIDEO_STYLES = [
+    { name:'High Energy', desc:'Rapid cuts, bold captions. Built to stop the scroll.', yt:'b-WBs1Oxc_U', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=1.+Maximum+Flash+Super+Agent_NEW!!!.mp4' },
+    { name:'Cinematic', desc:'Sweeping b-roll with big animated text. You appear in short bursts.', yt:'rbC5Psl_qpo', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=2.+Listings+Video_Nicolas.mp4' },
+    { name:'Showcase', desc:'Show off a place, product or offer piece by piece, with split-screen grids and animated headlines.', yt:'8w7Cgp0GgSo', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=2.+Listings+Videos_Meggie.mp4' },
+    { name:'Authentic &amp; Clean', desc:'One steady shot, plain captions, no effects. Just you talking to camera.', yt:'NDz6-_tMZ84', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=3.+Podcast+style_Meggie.mp4' },
+    { name:'Teach &amp; Show', desc:'One steady shot with cutaways to visuals that illustrate your point.', yt:'KU8oGNQ4ZAo', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=3.+Podcast+Style_Leticia.mp4' },
+    { name:'Quick Cuts', desc:'One shot, tight edits, no pauses. Bold captions with one word highlighted.', yt:'wCSvZttab5s', video:'https://www.dropbox.com/scl/fo/tyn1897hluonfvs3hu1mz/AHeOFuoHs7RJudRiTWTJKfk?dl=0&e=2&rlkey=pbuyvkc3bo1n8qxi4177dz0vp&st=g2kgiwwn&preview=4.+The+raw+jump-cut.mp4' },
+    { name:'Style 7', desc:'', yt:'', video:'' }
+  ];
+
+  (function buildVideoStyles(){
+    var wrap = document.getElementById('vstyles');
+    if(!wrap) return;
+    var hidden  = document.getElementById('videoStyle');
+    var counter = document.getElementById('vcount');
+    var MAX = 2;
+
+    function boxes(){ return Array.prototype.slice.call(wrap.querySelectorAll('input[type=checkbox]')); }
+
+    function sync(){
+      var chosen = boxes().filter(function(b){ return b.checked; }).map(function(b){ return b.value; });
+      hidden.value = chosen.join(', ');
+      boxes().forEach(function(b){
+        var card = b.closest('.vcard');
+        card.classList.toggle('sel', b.checked);
+        var lock = (chosen.length >= MAX && !b.checked);
+        b.disabled = lock;
+        card.classList.toggle('lock', lock);
+      });
+      if(counter){
+        counter.textContent = chosen.length
+          ? chosen.length + ' of ' + MAX + ' selected' + (chosen.length === MAX ? ' — untick one to change' : '')
+          : '';
+      }
+    }
+
+    // put every other card back to its thumbnail so only one video plays
+    function resetOthers(except){
+      Array.prototype.forEach.call(wrap.querySelectorAll('.vcard'), function(c){
+        if(c !== except && c.dataset.playing === '1'){
+          c.querySelector('.vslot').innerHTML = c.dataset.shell;
+          c.dataset.playing = '0';
+          wireThumb(c);
+        }
+      });
+    }
+
+    function wireThumb(card){
+      var t = card.querySelector('.vthumb');
+      if(!t) return;
+      t.addEventListener('click', function(){
+        var yt = card.dataset.yt, fallback = card.dataset.video;
+        if(yt){
+          resetOthers(card);
+          card.querySelector('.vslot').innerHTML =
+            '<div class="vframe"><iframe src="https://www.youtube-nocookie.com/embed/'+yt+
+            '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Style example" ' +
+            'allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+          card.dataset.playing = '1';
+        } else if(fallback){
+          window.open(fallback, '_blank', 'noopener');
+        }
+      });
+    }
+
+    VIDEO_STYLES.forEach(function(st){
+      var card = document.createElement('div');
+      card.className = 'vcard';
+      card.dataset.yt = st.yt || '';
+      card.dataset.video = st.video || '';
+      card.dataset.playing = '0';
+
+      var thumbImg = st.yt
+        ? '<img src="https://i.ytimg.com/vi/'+st.yt+'/hqdefault.jpg" alt="'+st.name+' preview" loading="lazy">'
+        : '<div class="ph">Preview coming soon</div>';
+      var label = st.yt ? 'Tap to preview' : (st.video ? 'Watch example \u2197' : 'Preview coming soon');
+
+      card.dataset.shell =
+        '<button type="button" class="vthumb">' + thumbImg +
+        ((st.yt || st.video) ? '<span class="pbtn"><span>&#9654;</span></span>' : '') +
+        '<span class="plabel">'+label+'</span></button>';
+
+      card.innerHTML =
+        '<div class="vslot">' + card.dataset.shell + '</div>' +
+        '<div class="vmeta"><b>'+st.name+'</b><small>'+(st.desc||'')+'</small></div>' +
+        '<label class="vsel"><input type="checkbox" name="videoStyleCheck" value="'+st.name+'"> Select this style</label>';
+
+      card.querySelector('input[type=checkbox]').addEventListener('change', sync);
+      wireThumb(card);
+      wrap.appendChild(card);
+    });
+    sync();
+  })();
 </script>
 </body>
 </html>
