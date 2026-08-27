@@ -589,15 +589,12 @@
   // ============================================================
   const GOOGLE_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSe_pCpDsk12lUjAfU7im4J75DBdurYDymEcwG-nbjAXtqzgAQ/formResponse';
   // Map: HTML field name  ->  Google entry ID
-  // NOTE: the built-in required "Email" question (Collect email addresses =
-  // Responder input) is NOT a normal entry.XXXX field — Google posts it
-  // under the fixed key "emailAddress". It was missing from this map, which
-  // silently broke every submission (Google rejects the whole POST because
-  // the required email question was blank; the cross-origin iframe means
-  // the page shows "Thank you" anyway, hiding the failure).
+  // The visible email also fills the form's explicit "BIGVU account email"
+  // question. postToGoogle() duplicates it into Google's required built-in
+  // emailAddress field used by "Collect email addresses".
   const ENTRY = {
     videoStyle:    'entry.202141024',
-    email:         'emailAddress',
+    email:         'entry.480842037',
     fullName:      'entry.543206877',
     business:      'entry.1801917244',
     phone:         'entry.412541202',
@@ -642,16 +639,17 @@
   // Also capture role + 90-day into an existing text field if you like:
   // extra fields (role, ninetyDay) can be appended into anythingElse.
 
-  // Posts the collected answers into the Google Form via a hidden iframe,
-  // so the client never leaves this branded page.
+  // Posts the collected answers without navigating away from the branded page.
+  // Google Forms does not expose CORS response bodies, so a resolved request
+  // confirms transport; the payload itself is kept to valid, non-empty values.
   function postToGoogle(data){
-    return new Promise(function(resolve){
-      var iframe = document.createElement('iframe');
-      iframe.name = 'gform_sink'; iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      var gf = document.createElement('form');
-      gf.action = GOOGLE_ACTION; gf.method = 'POST'; gf.target = 'gform_sink';
-      gf.style.display = 'none';
+    return new Promise(function(resolve,reject){
+      var body = new URLSearchParams();
+      function addField(name,value){
+        body.append(name,value);
+      }
+      // Google Forms' collected-email field is separate from normal entry IDs.
+      if(data.email && String(data.email).trim()) addField('emailAddress', data.email);
       Object.keys(ENTRY).forEach(function(name){
         var entryId = ENTRY[name];
         if(!entryId || entryId.indexOf('PLACEHOLDER') !== -1) return; // skip unset
@@ -659,17 +657,22 @@
         if(val === undefined || val === null) return;
         // multi-value (checkbox groups) -> Google expects repeated fields
         [].concat(val).forEach(function(v){
-          var input = document.createElement('input');
-          input.type = 'hidden'; input.name = entryId; input.value = v;
-          gf.appendChild(input);
+          // Empty optional text inputs must be omitted. Sending blank values for
+          // option questions can make Google reject the entire response.
+          if(typeof v === 'string' && !v.trim()) return;
+          addField(entryId,v);
         });
       });
-      document.body.appendChild(gf);
-      var done = false;
-      iframe.addEventListener('load', function(){ if(done) resolve(); done = true; });
-      gf.submit();
-      // Google's cross-origin response can't be read; resolve after a short beat regardless.
-      setTimeout(resolve, 1200);
+      var controller = new AbortController();
+      var timeout = setTimeout(function(){ controller.abort(); },15000);
+      fetch(GOOGLE_ACTION,{
+        method:'POST', mode:'no-cors', body:body,
+        signal:controller.signal, keepalive:true
+      }).then(function(){
+        clearTimeout(timeout); resolve();
+      }).catch(function(err){
+        clearTimeout(timeout); reject(err);
+      });
     });
   }
 
@@ -765,6 +768,11 @@
       document.querySelector('.prog').style.display='none';
       const done=document.getElementById('done'); done.classList.add('show');
       window.scrollTo({top:0,behavior:'smooth'});
+    }).catch(()=>{
+      btn.textContent=orig; btn.disabled=false;
+      const n=document.getElementById('saveNote');
+      n.textContent='We could not confirm your submission. Please try again or contact your coach.';
+      n.style.color='#E23B3B';
     });
   });
 
