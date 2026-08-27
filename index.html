@@ -542,7 +542,7 @@
   document.getElementById('roleChips').addEventListener('change', syncRealtor);
 
   // progress based on required fields filled
-  const reqNames=['fullName','business','email','role','whatYouDo','goal','audience','topicsFeature','appearMix','customAvatar'];
+  const reqNames=['fullName','business','email','role','whatYouDo','goal','audience','topicsFeature','appearMix'];
   const reqMessages={
     fullName:'Please add your name.',
     business:'Please add your business or brand name.',
@@ -719,7 +719,7 @@
       missing.forEach(showFieldError);
       const el=form.querySelector('[name="'+missing[0]+'"]');
       const grp=fieldGroup(missing[0]) || el;
-      grp.scrollIntoView({behavior:'smooth',block:'center'});
+      if(grp) grp.scrollIntoView({behavior:'smooth',block:'center'});
       if(el && el.focus) el.focus();
       const n=document.getElementById('saveNote');
       n.textContent = missing.length===1 ? '1 required field needs your attention — see above.' : missing.length+' required fields need your attention — see above.';
